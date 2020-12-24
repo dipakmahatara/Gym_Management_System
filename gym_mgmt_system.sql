@@ -1,19 +1,21 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.4
--- http://www.phpmyadmin.net
+-- version 5.0.2
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: May 23, 2018 at 11:42 PM
--- Server version: 5.1.41
--- PHP Version: 5.3.1
+-- Host: 127.0.0.1
+-- Generation Time: Dec 24, 2020 at 05:16 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.5
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `gym_mgmt_system`
@@ -22,11 +24,102 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `fees`
+--
+
+CREATE TABLE `fees` (
+  `id` int(11) NOT NULL,
+  `duration` int(11) NOT NULL,
+  `amount` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `fees`
+--
+
+INSERT INTO `fees` (`id`, `duration`, `amount`) VALUES
+(1, 1, 1000),
+(2, 2, 2000),
+(3, 3, 3000),
+(4, 4, 4200),
+(5, 5, 4600),
+(6, 6, 6000),
+(7, 7, 7000),
+(8, 8, 8000),
+(9, 9, 9000),
+(10, 10, 10000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `history`
+--
+
+CREATE TABLE `history` (
+  `id` int(11) NOT NULL,
+  `date` datetime NOT NULL,
+  `task` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `history`
+--
+
+INSERT INTO `history` (`id`, `date`, `task`) VALUES
+(1, '2018-05-21 11:53:26', 'Logged in by admin'),
+(2, '2018-05-21 11:56:47', 'Members are aaded by admin'),
+(3, '2018-05-21 11:57:54', 'Members are aaded by dipak'),
+(4, '2018-05-22 11:05:14', 'Member Prakash Oli is aded by '),
+(5, '2018-05-22 11:08:58', 'Logged in by Prerana Adhikari'),
+(6, '2018-05-22 11:56:17', 'Logged in by dipak'),
+(7, '2018-05-22 01:05:37', 'Member Sabita Dangi is aded by '),
+(8, '2018-05-22 01:26:22', 'Member Deep Dai is updated to Deep Dai by '),
+(19, '2018-05-22 02:53:21', 'Member Gangaram Subedi is updated to null by null'),
+(10, '2018-05-22 01:37:15', 'Logged in by giriraj'),
+(11, '2018-05-22 01:37:41', 'Member Rasu Lal Chaudhary is updated to null by null'),
+(12, '2018-05-22 02:15:41', 'Logged in by giriraj'),
+(13, '2018-05-22 02:17:50', 'Member Kalu Pande is added by null'),
+(14, '2018-05-22 02:19:25', 'Logged in by prerana'),
+(15, '2018-05-22 02:21:44', 'Member Gangaram Subedi is added by null'),
+(16, '2018-05-22 02:23:23', 'Logged in by admin'),
+(17, '2018-05-22 02:27:37', 'Logged in by admin'),
+(18, '2018-05-22 02:29:21', 'Member Barsha Rawat is added by '),
+(20, '2018-05-22 02:55:21', 'Member Gangaram Subedi is updated to null by null'),
+(21, '2018-05-22 02:59:00', 'Member Polo is updated to null by null'),
+(22, '2018-05-23 10:49:24', 'Logged in by dipak');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login`
+--
+
+CREATE TABLE `login` (
+  `id` int(10) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `full_name` varchar(255) NOT NULL,
+  `security_question` varchar(255) NOT NULL,
+  `answer` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `login`
+--
+
+INSERT INTO `login` (`id`, `username`, `password`, `full_name`, `security_question`, `answer`) VALUES
+(1, 'admin', 'password', 'Admin', '', ''),
+(2, 'D_admin', 'password', 'D Admin', '', ''),
+(10, 'deepdasolution', 'deepdasolution', 'Dipak Mahatara', 'What is your father name?', 'Karn Bahadur Mahatara');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `members`
 --
 
-CREATE TABLE IF NOT EXISTS `members` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `members` (
+  `id` int(11) NOT NULL,
   `membership_no` int(11) NOT NULL,
   `full_name` varchar(100) NOT NULL,
   `gender` varchar(100) NOT NULL,
@@ -45,10 +138,8 @@ CREATE TABLE IF NOT EXISTS `members` (
   `contact_no` double NOT NULL,
   `dob` date NOT NULL,
   `occupation` varchar(255) NOT NULL,
-  `img` longblob,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `membership_no` (`membership_no`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+  `img` longblob DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `members`
@@ -75,6 +166,105 @@ INSERT INTO `members` (`id`, `membership_no`, `full_name`, `gender`, `address`, 
 (12, 3010, 'Narulal Chaudhary', 'Male', 'DAng', 'Nepal', 64, 'Registered', 'Naru329@gmail.com', '2018-05-03', '2018-05-07', '2018-05-02', 'Monthly', 'Joining from today', 6, 6400, 985632146, '2018-05-04', 'Leader', 0x89504e470d0a1a0a0000000d4948445200000080000000800806000000c33e61cb0000000473424954080808087c086488000000097048597300000b1300000b1301009a9c180000067049444154789ceddc5b681c551807f0ff39b39bddec6ed2a6b6016b3054142f6d914205f18ae8431e146f78abb707a1a12a82f5d127f1c127f52de8932f057d1015bca0559056f112c48ab6a008d2526b6c6293bd64f63673cee78366938d31cd6536333bf3ff411e32d9fdf6db3dff9d393b7b260011111111111111111111111111111111111111111111111111111111111111459d0abb8144193bfe14941981f6eec1e85e2fec76004087dd40b2c8dd80be1d5eeff6b03b99c30084c1694666cfcb00241c03907091d915c5ced8f1c7a1e4caf68df641400f43f01a144aadcd82061afeab78764f7183bb64003a4244e1b5e32e80de95df070fe1c9dd6f75aea9a5a536fa01134129c1d88f3702eab2f6ed781ec02e287906564dcd6fb7359c9dfe7083bbfcb725da38633f7d06855b017f070eec3919763b00278189c700241c03b091041600a0d336e44e5a18808da4f0328017b07fe7e9b05b9913ab49a088645dd7bd0940cf3a6ab88542e1a852ca04d85a64c5260022a25dd73d0ae0fa00ca1d2a140a8f065027f2627308705df7610433f800f048b95cbe31a05a91168b008848ce5afb52c0655f119158bc3ecb89c513745df739adf54541d6d45aef9d9d9ddd1764cd28eafa3980ebbadb8d31bf6aad7341d7b6d6feded7d777b952aa1a74eda8e8fa3d80b5f6c54e0c3e0068ad875cd73dd889da5111da1e40441480cc7a6a54abd55dc69871ad75c79e8788b88ee3ececeded3dbb8e325629d50caca90085128062b138a0b53eacb5de1bc6e387e49d7c3e7f7fd4ce2f84720848a552f7266cf001e09e4aa5725dd84d2c164a0044241bc6e3864d6b9d0fbb87c5ba7e1248ebc300241c0390700c40c2310009c700245c6296858b48eb472905ad997d20e601b0d6c2f33cf8be0f63fe7b02ce711ca4d369a4d36928d5f5df8bad492c03202268341af03c0f22f2bfb733c6c018837abd8e4c26834c665d5f4d74a5d805c05a8b6ab50a6b57b7f0b6d168c0f77de472b944ed0d6275205c6ef095f8487b13e8699c44ca3b0bc87f0f09c618b8aebbec5e236e62b307109125073fed9f45a1720499da2f50981f74d119d4b25761b6ef661867736bbbb516b55a0db95c479618444e280138e3fa6915f057f8fdf0218b063fef7e83fef2614096d823d80672d563e8ad9d4071f39da8f7ee6cfdcdf77d146b0db8e204daa3566acdcbd53b259400ec7aefb4f125b8006ccb68fc3032d0b6b821ef8ea3bff4f179efaba4898199b731a352a8672f6f6df79b4decfee02f3403bc86e7b68b7283c1550b462873007fee12a9801cbc22d736f8297f0afde54f565141b069e65d683bbff4af4709eebb78e597f7afc4e713f53381160c402c26812317b67f7c2b54be587292b71c2d75e4ddf1b66dfb86835db6602238bbecfa00384a6130b3e0fd2f06d9facf6baa95ad9d68fbfdb2beae7f79ceabeb9fe1d60ca030ffc64a992294ac6dfd65caffabed93423ed8396024757d00b24efb5350d258473581b2f3e151003ab7de381aba3e00b37efb61d5aee71201e5c0aaf9f98411c046eea81dacae0fc074c36261068cb309d629aca95633bd1d50f32f49c95f6f77d1d7f5011000a76b0bdfa60ab5deabd7546bf1fd7e2c456a097f47747d0000e08ddf6ae585bfcf16ae83d5abfb0cefa7b6a296dfd3b6edf55f637b49604b2c0270e864bdbf61a4f59f37adcea3b8e57e0856368db72a8b9981f6db4f7bc0d1c9485ecd15a85804a06e042ffe54699bfe377a76607aeb63304effb2f7f5d38338b7ed09f8e9f6b3b4078f5510f3f91f8098040000de38e50d1e2bfaa7166e6bf60c636af06994378da0991e82a87fbefa109d413373094a0377616aeb28fcd4b6b65a1ffde9e1f044fcdffd409cbe0e0670df97e5e14f6fe9fb7d473e3dd4daae7ae0e6af859bbf168040c142a0f17fd7c5fe5032181daf6c4cd311109b3d0000548de0b6cf2b435f4e79a796be85faf738bff4e07f30e1e18e232598e89db2ef98580500006a46f0c057e5e1d1ef4ac562d3ace89afec986e0e1afcbd83f5e4ed4e003313a042c2400de3fe36ffee88f126ed8e254f7edc8fe71cd054e6620a536a71cdde359a94fd66ce9dbe9a63d74b279f1773346276bd8e7c53200738c088e9cf37347cecd5ebae84f19009bc2e8296a627708a0d56100128e0148380620e11880846300128e0148b87002a09080b5364b31936177b05838278254cfdbb0de081486ce7fe318b062a0d49b3870f5f761b74244444444444444444444444444444444444444444444444444444444444444dde76f7bfa28a3cf407f080000000049454e44ae426082),
 (13, 3011, 'Rasu Lal Chaudhary', 'Female', 'DAng', 'Nepal', 66, 'Registered', 'Rasu7329@gmail.com', '2018-05-03', '2018-05-07', '2018-05-07', 'Monthly', 'Joining from today', 6, 4850, 975235554, '2018-05-04', 'HouseKeeping', 0x89504e470d0a1a0a0000000d494844520000014300000109080200000081),
 (14, 3012, 'Prakash Oli', 'Male', 'Chennai', 'India', 82, 'Registered', 'Prakh89@hotmail.com', '2018-05-21', '2018-05-09', '2018-05-14', 'Quartly', 'Joinign from today', 5, 9800, 9847852311, '2018-05-09', 'Teacher', 0x89504e470d0a1a0a0000000d49484452000000dd000000f108060000004f);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product`
+--
+
+CREATE TABLE `product` (
+  `product_id` int(11) NOT NULL,
+  `product_name` varchar(255) NOT NULL,
+  `category` varchar(255) NOT NULL,
+  `cost_price` double NOT NULL,
+  `sell_price` double NOT NULL,
+  `opening_stock` int(11) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`product_id`, `product_name`, `category`, `cost_price`, `sell_price`, `opening_stock`, `description`) VALUES
+(1, 'New Era Powder', 'Powder', 4500, 5000, 10, 'Sugerless'),
+(2, 'Hand Dumbles', 'Dumble', 6000, 6300, 30, 'Each of which are 5 kg'),
+(3, 'Jeams Sweet', 'Dumbles', 600, 780, 100, 'for boosting'),
+(4, 'Royel Boost', 'Boosts', 900, 1185, 1000, 'import from Korea'),
+(5, 'Jeam Belt', 'Dumbles', 700, 840, 400, 'import from pokhara'),
+(6, 'Gang Jotel', 'Dumbles', 890, 740, 800, 'Must keep in dry place'),
+(7, 'Feasting klor', 'Dumbles', 9640, 1500, 1000, '6 mpnth Gurantee');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `fees`
+--
+ALTER TABLE `fees`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `history`
+--
+ALTER TABLE `history`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `login`
+--
+ALTER TABLE `login`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `members`
+--
+ALTER TABLE `members`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `membership_no` (`membership_no`);
+
+--
+-- Indexes for table `product`
+--
+ALTER TABLE `product`
+  ADD PRIMARY KEY (`product_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `fees`
+--
+ALTER TABLE `fees`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `history`
+--
+ALTER TABLE `history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `login`
+--
+ALTER TABLE `login`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `members`
+--
+ALTER TABLE `members`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `product`
+--
+ALTER TABLE `product`
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
